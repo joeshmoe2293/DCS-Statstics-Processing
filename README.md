@@ -9,7 +9,7 @@ This is the process for how I have done it, though I will see if I can add a way
 ```
 local json = require('lunajson')  -- You can put a different JSON library here too, just replace .encode() if need be
 local data = json.encode(misStats)  
-local file = io.open('data.json', 'r')  
+local file = io.open('data.json', 'w')  
 io.output(file)  
 io.write(data)  
 io.close(file)
