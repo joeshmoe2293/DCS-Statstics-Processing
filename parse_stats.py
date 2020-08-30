@@ -165,7 +165,7 @@ def output_weapon_stats(weapons):
         kills = weapons[weapon]['kills']
         shots = weapons[weapon]['shot']
         hits = weapons[weapon]['numHits']
-        accuracy = round(hits / shots * 100, 2)
+        accuracy = round(hits / max(shots, 1) * 100, 2)
 
         weapon_str += '[{:18s}]: '.format(weapon)
         weapon_str += '{:5d} Shots, '.format(shots)
