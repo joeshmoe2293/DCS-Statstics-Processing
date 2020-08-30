@@ -13,7 +13,7 @@ def parse_json(json_data):
 
         pilot_name = parse_pilot_name(pilot_data)
         pilots[pilot_name] = {'airframeTime' : {},'weaponsEmployed' : [], 'numHits' : 0, 'kills' : 0, 'shot' : 0,
-                        'pilotDeath' : 0, 'crash' : 0, 'eject' : 0, 'targetsDestroyed' : {}}
+                'pilotDeath' : 0, 'crash' : 0, 'eject' : 0, 'targetsDestroyed' : {}, 'LSO' : {}}
 
         print('Processing: {}'.format(pilot_name))
 
@@ -49,11 +49,16 @@ def parse_json(json_data):
                             pilots[pilot_name][stat] += statistic
 
             if 'actions' in aircraft_data:
-                loss_data = aircraft_data['actions']['losses']
-                for stat in loss_data:
-                    statistic = loss_data[stat]
-                    airframes[aircraft][stat] += statistic
-                    pilots[pilot_name][stat] += statistic
+                if 'LSO' in aircraft_data['actions']:
+                    lso_data = aircraft_data['actions']['LSO']
+                    pilots[pilot_name]['LSO'] = lso_data
+
+                if 'losses' in aircraft_data['actions']:
+                    loss_data = aircraft_data['actions']['losses']
+                    for stat in loss_data:
+                        statistic = loss_data[stat]
+                        airframes[aircraft][stat] += statistic
+                        pilots[pilot_name][stat] += statistic
 
             if 'kills' in aircraft_data:
                 kill_data = aircraft_data['kills']
