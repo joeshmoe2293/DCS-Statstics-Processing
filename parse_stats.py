@@ -42,7 +42,7 @@ def parse_json(json_data):
                         pilots[pilot_name]['weaponsEmployed'].append(weapon)
                     
                     for stat in aircraft_data['weapons'][weapon]:
-                        if stat != 'gun' and stat != 'hit':
+                        if stat != 'gun' and stat != 'hit' and stat != 'kL' and stat != 'spec':
                             statistic = aircraft_data['weapons'][weapon][stat]
                             airframes[aircraft][stat] += statistic
                             weapons[weapon][stat] += statistic
@@ -166,7 +166,7 @@ def get_targets_as_str(targets):
 def output_weapon_stats(weapons):
     weapon_str = ''
 
-    for weapon in weapons:
+    for weapon in sorted(weapons.keys()):
         kills = weapons[weapon]['kills']
         shots = weapons[weapon]['shot']
         hits = weapons[weapon]['numHits']
